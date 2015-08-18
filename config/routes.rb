@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :user
 
   resources :measure
-    #get 'measure/show'
+    # get 'user/:mail'
     #get 'measure/index'
 
   

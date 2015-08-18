@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812023057) do
+ActiveRecord::Schema.define(version: 20150815033723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,10 @@ ActiveRecord::Schema.define(version: 20150812023057) do
     t.decimal  "latitude"
     t.decimal  "longitude"
     t.decimal  "value"
+    t.integer  "user_id"
   end
+
+  add_index "measures", ["user_id"], name: "index_measures_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.text     "name"
@@ -33,4 +36,5 @@ ActiveRecord::Schema.define(version: 20150812023057) do
     t.boolean  "session"
   end
 
+  add_foreign_key "measures", "users"
 end
