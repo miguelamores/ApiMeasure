@@ -15,7 +15,6 @@ class UserController < ApplicationController
       render json: users, status: 200
     else
       render nothing: true, status: 404
-      # render nothing: true, status: 404
     end
     
   end
@@ -34,8 +33,5 @@ private
   		params.require(:user).permit(:id, :name, :mail, :password)
   	end
 
-    def user_show_params
-      params.require(:user).permit(:mail, :password)
-    end
 
 end

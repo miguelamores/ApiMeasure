@@ -20,7 +20,7 @@ class MeasureController < ApplicationController
 
   private
   	def measure_params
-  		params.require(:measure).permit(:id, :value, :latitude, :longitude)
+  		params.require(:measure).permit(:id, :value, :latitude, :longitude, :user_id)
   	end
   
 
