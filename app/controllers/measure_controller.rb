@@ -1,18 +1,25 @@
 class MeasureController < ApplicationController
-  def index
-  	measures = Measure.all
-  	render json: measures, status: 200
-  end
-
-  # def show
-  # 	measure = Measure.find(params[:id])
-  # 	render json: measure, status: 200
+  # def index
+  # 	measures = Measure.all
+  # 	render json: measures, status: 200
   # end
+
+  def index
+    if params[:startDate]
+      measures = Measure.where("created_at >= :startDate AND created_at <= :endDate",
+      {startDate: params[:startDate], endDate: params[:endDate]})
+    else
+      measures = Measure.all
+    end
+    render json: measures, status: 200
+  end
 
   def create
   	measure = Measure.new(measure_params)
   	if measure.save
   		render json: measure, status: 201, location: measure
+    else
+      render nothing: true, status: 500
     end
   end
 
