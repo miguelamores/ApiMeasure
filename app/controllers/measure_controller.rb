@@ -6,9 +6,17 @@ class MeasureController < ApplicationController
 
   def index
     if params[:startDate]
-      measures = Measure.where("created_at >= :startDate AND created_at <= :endDate",
+      measures = Measure.joins(:user).where("measures.created_at >= :startDate AND measures.created_at <= :endDate",
       {startDate: params[:startDate], endDate: params[:endDate]})
+      # measures = Measure.find_by_sql("SELECT * FROM measures
+      #             INNER JOIN users ON users.id = measures.user_id 
+      #             WHERE created_at >= ? AND created_at <= ?", params[:startDate], params[:endDate])
+
     else
+      # measures = Measure.find_by_sql("SELECT * FROM measures
+      #             INNER JOIN users ON users.id = measures.user_id 
+      #             WHERE created_at >= :startDate AND created_at <= :endDate",
+      #             {startDate: params[:startDate], endDate: params[:endDate]})
       measures = Measure.all
     end
     render json: measures, status: 200
